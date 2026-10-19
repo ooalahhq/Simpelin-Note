@@ -1,15 +1,15 @@
 ![Simpelin — Made by Phya](docs/readme-banner.svg)
 
-Catatan belajar bernuansa **pixel fantasy**. Tulis, rapikan, dan pahami materi sambil menikmati animasi sihir.
+Catatan belajar **pixel fantasy**. pahami materi sambil menikmati DUAR DUAR.
 
-## ✨ Fitur
+##  Fitur
 
 - **Catatan rapi:** kategori, gambar, tabel, dan blok kode.
 - **Suasana fantasy:** efek sihir, Motion Lab, dan Ooalah witch.
 - **Bantuan AI:** penjelasan sederhana, contoh, dan materi pelengkap.
 - **Simpan otomatis** di browser, tanpa login. Bisa ekspor cadangan ZIP.
 
-## 🚀 Mulai — Windows & Linux
+## 🚀 Cara pake Windows & Linux
 
 1. Pasang [Node.js LTS](https://nodejs.org/en/download) (minimal versi 22.13).
 2. Unduh ZIP proyek ini, lalu ekstrak.
@@ -26,7 +26,7 @@ npm start
 
 Buka **http://localhost:3000**. Biarkan terminal terbuka. Untuk berhenti, tekan **Ctrl+C**. Berikutnya cukup `npm start`.
 
-## 🪄 Pakai AI
+##  Pakai AI summary
 
 Buka **Pengaturan → AI Provider**, pilih OpenAI, Gemini, atau Anthropic. Masukkan ID model dan API key milikmu, lalu **Uji koneksi → Aktifkan pengaturan**.
 
