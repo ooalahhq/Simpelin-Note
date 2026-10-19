@@ -1,0 +1,85 @@
+/* Identity transitions preserve editor DOM and never delay a document switch. */
+.note-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  position: relative;
+  overflow: clip;
+}
+.fantasy-reveal {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-raised);
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    100deg,
+    var(--color-transparent),
+    var(--color-accent-soft)
+  );
+  transform-origin: left center;
+}
+.settings-tabs > button {
+  position: relative;
+  border-bottom-color: var(--color-transparent) !important;
+}
+.settings-tab-rune {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-accent);
+  pointer-events: none;
+}
+.settings-tab-rune:after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: calc(50% - 3px);
+  width: 6px;
+  height: 6px;
+  background: var(--color-accent);
+  transform: rotate(45deg);
+}
+.modal[open] {
+  animation: none;
+}
+.modal[open]::backdrop {
+  animation: fantasy-backdrop-in var(--dur-short) var(--ease-out);
+}
+.modal[data-closing="true"]::backdrop {
+  animation: fantasy-backdrop-out 150ms var(--ease-in) forwards;
+}
+@keyframes fantasy-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fantasy-backdrop-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.category-header {
+  min-height: 105px;
+  padding-top: 4px;
+}
+.category-header h1 {
+  margin-top: 0;
+}
+.lab-intro {
+  padding-top: 28px;
+  padding-bottom: 26px;
+}
+.lab-intro h1 {
+  margin-top: 10px;
+}

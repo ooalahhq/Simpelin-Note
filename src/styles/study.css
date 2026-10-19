@@ -1,0 +1,61 @@
+/* Editable study summaries: compact prose and scrollable comparison tables. */
+.rich-editor .tableWrapper {
+  overflow-x: auto;
+  max-width: 100%;
+  margin: 18px 0 22px;
+  overscroll-behavior-x: contain;
+}
+.rich-editor table {
+  width: 100%;
+  min-width: 340px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 12px;
+  line-height: 1.65;
+}
+.rich-editor th,
+.rich-editor td {
+  border: 1px solid var(--color-rule);
+  padding: 10px 12px;
+  vertical-align: top;
+  position: relative;
+  overflow-wrap: anywhere;
+}
+.rich-editor th {
+  background: var(--color-sidebar);
+  font-weight: 650;
+  text-align: left;
+}
+.rich-editor td {
+  background: var(--color-paper);
+}
+.rich-editor th p,
+.rich-editor td p {
+  margin: 0;
+}
+.rich-editor .selectedCell:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent-soft);
+  pointer-events: none;
+}
+.rich-editor li > :last-child,
+.rich-editor blockquote > :last-child {
+  margin-bottom: 0;
+}
+.rich-editor blockquote p + p {
+  margin-top: 8px;
+}
+@media (max-width: 768px) {
+  .rich-editor th,
+  .rich-editor td {
+    padding: 8px 10px;
+  }
+}
+
+.lab-intro .lab-credit {
+  margin: 4px 0 10px;
+  color: var(--color-accent);
+  font-size: 13px;
+}

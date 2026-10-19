@@ -1,0 +1,26 @@
+[
+  {
+    "date": "2026-10-19",
+    "scope": "app",
+    "macrostructure": "Workbench",
+    "theme": "custom pixel fantasy",
+    "theme_axes": "dark / pixel-display / warm",
+    "vibe": "forest grimoire with dynamic elemental spells",
+    "enrichment": "original static pixel SVG scenery; event-driven spell geometry",
+    "brief": "User steered Simpelin toward pixel fantasy RPG reference",
+    "nav": "N3 side-rail",
+    "footer": "Ft2 inline status",
+    "verification": "typecheck, unit/DOM tests; browser blocked by environment"
+  },
+  {
+    "date": "2026-10-19",
+    "macrostructure": "Workbench",
+    "theme": "custom",
+    "theme_axes": "light / geometric-sans / cool",
+    "vibe": "quiet lavender workspace with cinematic impact",
+    "enrichment": "event-driven PixiJS VFX",
+    "brief": "Simpelin local-first study notes",
+    "nav": "N3 side-rail",
+    "footer": "Ft2 inline status"
+  }
+]

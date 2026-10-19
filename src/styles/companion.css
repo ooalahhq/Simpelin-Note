@@ -1,0 +1,295 @@
+/* Ooalah witch: original 4×2 raster atlas, CSS frames; no JavaScript idle render loop. */
+.sidebar-bottom {
+  padding-top: 12px;
+  flex-shrink: 0;
+}
+.group-list {
+  flex: 1;
+  min-height: 0;
+}
+.witch-frame {
+  display: block;
+  width: 90px;
+  height: 120px;
+  overflow: clip;
+  position: relative;
+  opacity: 0;
+  pointer-events: none;
+  image-rendering: pixelated;
+}
+.is-ready .witch-frame {
+  opacity: 1;
+  animation: witch-breathe 2.8s var(--ease-in-out) infinite;
+}
+.witch-atlas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400%;
+  height: 200%;
+  max-width: none;
+  image-rendering: pixelated;
+  animation: witch-idle 2.6s step-end infinite;
+  user-select: none;
+  pointer-events: none;
+}
+.is-waving .witch-atlas {
+  animation: witch-wave 0.85s step-end 2;
+}
+.witch-greeting {
+  position: absolute;
+  bottom: calc(100% - 11px);
+  left: 4px;
+  right: 4px;
+  padding: 11px 25px 11px 12px;
+  border: 1px solid var(--color-bronze);
+  border-radius: var(--radius-sm);
+  background: var(--color-sidebar);
+  box-shadow: 0 3px 0 var(--color-shadow);
+  color: var(--color-ink);
+  z-index: var(--z-dropdown);
+  font-size: 12px;
+  line-height: 1.5;
+  animation: witch-greet-in var(--dur-short) var(--ease-out);
+}
+.witch-greeting:after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: calc(50% - 4px);
+  width: 8px;
+  height: 8px;
+  background: var(--color-sidebar);
+  border-right: 1px solid var(--color-bronze);
+  border-bottom: 1px solid var(--color-bronze);
+  transform: rotate(45deg);
+}
+.witch-greeting strong {
+  font-weight: 500;
+  color: var(--color-accent);
+}
+.witch-dismiss {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  color: var(--color-muted);
+  border-radius: var(--radius-sm);
+}
+.witch-dismiss:hover {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+@keyframes witch-idle {
+  0%,
+  31.99% {
+    transform: translate(0, 0);
+  }
+  32%,
+  62.99% {
+    transform: translate(-25%, 0);
+  }
+  63%,
+  67.99% {
+    transform: translate(-50%, 0);
+  }
+  68%,
+  99.99% {
+    transform: translate(-75%, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+@keyframes witch-wave {
+  0%,
+  24.99% {
+    transform: translate(0, -50%);
+  }
+  25%,
+  49.99% {
+    transform: translate(-25%, -50%);
+  }
+  50%,
+  74.99% {
+    transform: translate(-50%, -50%);
+  }
+  75%,
+  100% {
+    transform: translate(-75%, -50%);
+  }
+}
+@keyframes witch-breathe {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+@keyframes witch-greet-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 768px) {
+  .category-header {
+    min-height: 96px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .witch-atlas,
+  .is-ready .witch-frame,
+  .is-waving .witch-atlas,
+  .witch-greeting,
+  .modal[open]::backdrop,
+  .modal[data-closing="true"]::backdrop {
+    animation: none !important;
+    transform: none !important;
+  }
+  .settings-tab-rune {
+    transition: none;
+  }
+}
+.category-header {
+  min-height: 82px;
+}
+.category-row {
+  transition: background var(--dur-short) var(--ease-out);
+}
+@media (max-width: 768px) {
+  .category-header {
+    min-height: 72px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .category-row {
+    transition: none;
+  }
+}
+
+/* Occasional companion: emerge from behind the sidebar, without a layout slot. */
+.witch-peek {
+  position: fixed;
+  left: var(--sidebar-width);
+  bottom: clamp(112px, 18dvh, 190px);
+  width: 90px;
+  height: 120px;
+  z-index: var(--z-raised);
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(-100%);
+  transition:
+    transform 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms var(--ease-out),
+    visibility 0s 620ms;
+}
+.witch-peek.is-visible {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-12px);
+  transition-delay: 0s;
+}
+.witch-peek .witch-frame {
+  width: 90px;
+  height: 120px;
+}
+.witch-peek .witch-greeting {
+  left: 78px;
+  right: auto;
+  bottom: 38px;
+  width: 230px;
+  max-width: calc(100vw - var(--sidebar-width) - 90px);
+  padding: 13px 36px 14px 14px;
+  animation: none;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition:
+    opacity 180ms var(--ease-out),
+    transform 280ms var(--ease-out);
+}
+.witch-peek.is-visible .witch-greeting {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 180ms;
+  pointer-events: auto;
+}
+.witch-peek .witch-greeting:after {
+  left: -5px;
+  bottom: 20px;
+  transform: rotate(135deg);
+}
+.witch-tip-name {
+  margin-bottom: 6px;
+}
+.witch-peek .witch-dismiss {
+  top: 3px;
+  right: 3px;
+  width: 30px;
+  height: 30px;
+}
+.witch-peek[aria-hidden="true"] .witch-atlas,
+.witch-peek[aria-hidden="true"] .witch-frame,
+.witch-peek[data-reduced="true"] .witch-atlas,
+.witch-peek[data-reduced="true"] .witch-frame {
+  animation: none;
+  transform: none;
+}
+.witch-peek[data-reduced="true"],
+.witch-peek[data-reduced="true"] .witch-greeting {
+  transition-property: opacity, visibility;
+}
+.witch-peek[data-reduced="true"] {
+  transform: translateX(-12px);
+}
+@media (max-width: 768px) {
+  .witch-peek {
+    left: min(var(--sidebar-width), calc(100vw - 90px));
+    bottom: max(100px, env(safe-area-inset-bottom));
+    z-index: var(--z-modal);
+  }
+  .witch-peek .witch-greeting {
+    left: auto;
+    right: 0;
+    bottom: 126px;
+    width: 230px;
+    max-width: calc(100vw - 32px);
+    padding-right: 46px;
+  }
+  .witch-peek .witch-greeting:after {
+    left: auto;
+    right: 30px;
+    bottom: -5px;
+    transform: rotate(45deg);
+  }
+  .witch-peek .witch-dismiss {
+    width: 40px;
+    height: 40px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .witch-peek {
+    transform: translateX(-12px);
+    transition:
+      opacity 120ms var(--ease-out),
+      visibility 0s 120ms;
+  }
+  .witch-peek.is-visible {
+    transition-delay: 0s;
+  }
+  .witch-peek .witch-greeting {
+    transform: none;
+    transition: opacity 120ms var(--ease-out);
+  }
+}

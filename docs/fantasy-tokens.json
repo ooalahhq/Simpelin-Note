@@ -1,0 +1,378 @@
+{
+  "color-paper": {
+    "$type": "color",
+    "$value": "oklch(17% 0.025 165)"
+  },
+  "color-surface": {
+    "$type": "color",
+    "$value": "oklch(23% 0.023 165)"
+  },
+  "color-sidebar": {
+    "$type": "color",
+    "$value": "oklch(16% 0.02 165)"
+  },
+  "color-ink": {
+    "$type": "color",
+    "$value": "oklch(93% 0.035 85)"
+  },
+  "color-muted": {
+    "$type": "color",
+    "$value": "oklch(78% 0.035 100)"
+  },
+  "color-subtle": {
+    "$type": "color",
+    "$value": "oklch(72% 0.035 100)"
+  },
+  "color-rule": {
+    "$type": "color",
+    "$value": "oklch(36% 0.035 100)"
+  },
+  "color-accent": {
+    "$type": "color",
+    "$value": "oklch(78% 0.125 80)"
+  },
+  "color-accent-hover": {
+    "$type": "color",
+    "$value": "oklch(85% 0.12 85)"
+  },
+  "color-accent-soft": {
+    "$type": "color",
+    "$value": "oklch(28% 0.045 110)"
+  },
+  "color-accent-line": {
+    "$type": "color",
+    "$value": "oklch(55% 0.08 85)"
+  },
+  "color-focus": {
+    "$type": "color",
+    "$value": "oklch(86% 0.14 85)"
+  },
+  "color-success": {
+    "$type": "color",
+    "$value": "oklch(78% 0.1 150)"
+  },
+  "color-success-soft": {
+    "$type": "color",
+    "$value": "oklch(25% 0.04 155)"
+  },
+  "color-warning": {
+    "$type": "color",
+    "$value": "oklch(84% 0.12 80)"
+  },
+  "color-warning-soft": {
+    "$type": "color",
+    "$value": "oklch(28% 0.04 80)"
+  },
+  "color-danger": {
+    "$type": "color",
+    "$value": "oklch(78% 0.12 35)"
+  },
+  "color-danger-soft": {
+    "$type": "color",
+    "$value": "oklch(27% 0.045 35)"
+  },
+  "color-code": {
+    "$type": "color",
+    "$value": "oklch(19% 0.02 160)"
+  },
+  "color-overlay": {
+    "$type": "color",
+    "$value": "oklch(10% 0.02 160 / 0.72)"
+  },
+  "color-shadow": {
+    "$type": "color",
+    "$value": "oklch(8% 0.02 160 / 0.38)"
+  },
+  "color-transparent": {
+    "$type": "color",
+    "$value": "transparent"
+  },
+  "color-bronze": {
+    "$type": "color",
+    "$value": "oklch(49% 0.065 78)"
+  },
+  "color-edge-light": {
+    "$type": "color",
+    "$value": "oklch(63% 0.07 85)"
+  },
+  "color-parchment": {
+    "$type": "color",
+    "$value": "oklch(94% 0.035 85)"
+  },
+  "color-parchment-dim": {
+    "$type": "color",
+    "$value": "oklch(89% 0.045 85)"
+  },
+  "color-parchment-ink": {
+    "$type": "color",
+    "$value": "oklch(29% 0.035 70)"
+  },
+  "color-parchment-muted": {
+    "$type": "color",
+    "$value": "oklch(43% 0.045 70)"
+  },
+  "color-parchment-rule": {
+    "$type": "color",
+    "$value": "oklch(78% 0.055 80)"
+  },
+  "color-parchment-accent": {
+    "$type": "color",
+    "$value": "oklch(43% 0.09 65)"
+  },
+  "color-parchment-soft": {
+    "$type": "color",
+    "$value": "oklch(87% 0.065 85)"
+  },
+  "color-parchment-code": {
+    "$type": "color",
+    "$value": "oklch(89% 0.035 85)"
+  },
+  "color-parchment-success": {
+    "$type": "color",
+    "$value": "oklch(36% 0.075 150)"
+  },
+  "color-parchment-warning": {
+    "$type": "color",
+    "$value": "oklch(40% 0.09 65)"
+  },
+  "color-parchment-danger-soft": {
+    "$type": "color",
+    "$value": "oklch(92% .035 30)"
+  },
+  "color-parchment-danger": {
+    "$type": "color",
+    "$value": "oklch(43% 0.13 30)"
+  },
+  "fx-core": {
+    "$type": "color",
+    "$value": "oklch(83% 0.17 75)"
+  },
+  "fx-bright": {
+    "$type": "color",
+    "$value": "oklch(98% 0.035 95)"
+  },
+  "fx-ink": {
+    "$type": "color",
+    "$value": "oklch(60% 0.19 42)"
+  },
+  "fx-shard": {
+    "$type": "color",
+    "$value": "oklch(73% 0.18 55)"
+  },
+  "fx-leaf": {
+    "$type": "color",
+    "$value": "oklch(78% 0.14 145)"
+  },
+  "fx-leaf-dark": {
+    "$type": "color",
+    "$value": "oklch(54% 0.13 155)"
+  },
+  "fx-frost": {
+    "$type": "color",
+    "$value": "oklch(88% 0.065 205)"
+  },
+  "fx-frost-dark": {
+    "$type": "color",
+    "$value": "oklch(63% 0.09 225)"
+  },
+  "fx-rune": {
+    "$type": "color",
+    "$value": "oklch(81% 0.1 300)"
+  },
+  "fx-rune-dark": {
+    "$type": "color",
+    "$value": "oklch(59% 0.13 295)"
+  },
+  "scene-sky-top": {
+    "$type": "color",
+    "$value": "oklch(18% 0.035 200)"
+  },
+  "scene-sky-bottom": {
+    "$type": "color",
+    "$value": "oklch(42% 0.045 110)"
+  },
+  "scene-star": {
+    "$type": "color",
+    "$value": "oklch(87% 0.06 85)"
+  },
+  "scene-moon": {
+    "$type": "color",
+    "$value": "oklch(86% 0.07 90)"
+  },
+  "scene-ridge-far": {
+    "$type": "color",
+    "$value": "oklch(30% 0.035 180)"
+  },
+  "scene-ridge-mid": {
+    "$type": "color",
+    "$value": "oklch(25% 0.035 170)"
+  },
+  "scene-ruin": {
+    "$type": "color",
+    "$value": "oklch(22% 0.025 155)"
+  },
+  "scene-window": {
+    "$type": "color",
+    "$value": "oklch(76% 0.13 75)"
+  },
+  "scene-trunk": {
+    "$type": "color",
+    "$value": "oklch(16% 0.02 80)"
+  },
+  "scene-tree-far": {
+    "$type": "color",
+    "$value": "oklch(21% 0.035 165)"
+  },
+  "scene-tree-near": {
+    "$type": "color",
+    "$value": "oklch(14% 0.025 160)"
+  },
+  "scene-mist": {
+    "$type": "color",
+    "$value": "oklch(67% 0.025 150)"
+  },
+  "scene-water": {
+    "$type": "color",
+    "$value": "oklch(19% 0.03 180)"
+  },
+  "scene-ground": {
+    "$type": "color",
+    "$value": "oklch(13% 0.02 155)"
+  },
+  "scene-grass": {
+    "$type": "color",
+    "$value": "oklch(23% 0.035 145)"
+  },
+  "font-display": {
+    "$type": "fontFamily",
+    "$value": "\"Pixelify Sans\", monospace"
+  },
+  "font-body": {
+    "$type": "fontFamily",
+    "$value": "\"DM Sans Variable\", sans-serif"
+  },
+  "font-mono": {
+    "$type": "fontFamily",
+    "$value": "\"JetBrains Mono\", monospace"
+  },
+  "space-xs": {
+    "$type": "string",
+    "$value": "4px"
+  },
+  "space-sm": {
+    "$type": "string",
+    "$value": "8px"
+  },
+  "space-md": {
+    "$type": "string",
+    "$value": "16px"
+  },
+  "space-lg": {
+    "$type": "string",
+    "$value": "24px"
+  },
+  "space-xl": {
+    "$type": "string",
+    "$value": "32px"
+  },
+  "space-2xl": {
+    "$type": "string",
+    "$value": "48px"
+  },
+  "space-3xl": {
+    "$type": "string",
+    "$value": "64px"
+  },
+  "text-xs": {
+    "$type": "string",
+    "$value": "0.75rem"
+  },
+  "text-sm": {
+    "$type": "string",
+    "$value": "0.875rem"
+  },
+  "text-base": {
+    "$type": "string",
+    "$value": "1rem"
+  },
+  "text-lg": {
+    "$type": "string",
+    "$value": "1.125rem"
+  },
+  "text-xl": {
+    "$type": "string",
+    "$value": "1.5rem"
+  },
+  "text-display": {
+    "$type": "string",
+    "$value": "clamp(1.7rem, 2.7vw, 2.25rem)"
+  },
+  "radius-sm": {
+    "$type": "string",
+    "$value": "2px"
+  },
+  "radius-md": {
+    "$type": "string",
+    "$value": "3px"
+  },
+  "radius-lg": {
+    "$type": "string",
+    "$value": "4px"
+  },
+  "radius-pill": {
+    "$type": "string",
+    "$value": "999px"
+  },
+  "ease-out": {
+    "$type": "string",
+    "$value": "cubic-bezier(0.16, 1, 0.3, 1)"
+  },
+  "ease-in": {
+    "$type": "string",
+    "$value": "cubic-bezier(0.7, 0, 0.84, 0)"
+  },
+  "ease-in-out": {
+    "$type": "string",
+    "$value": "cubic-bezier(0.65, 0, 0.35, 1)"
+  },
+  "dur-micro": {
+    "$type": "string",
+    "$value": "120ms"
+  },
+  "dur-short": {
+    "$type": "string",
+    "$value": "220ms"
+  },
+  "dur-long": {
+    "$type": "string",
+    "$value": "420ms"
+  },
+  "z-base": {
+    "$type": "string",
+    "$value": "1"
+  },
+  "z-raised": {
+    "$type": "string",
+    "$value": "10"
+  },
+  "z-dropdown": {
+    "$type": "string",
+    "$value": "100"
+  },
+  "z-sticky": {
+    "$type": "string",
+    "$value": "200"
+  },
+  "z-modal": {
+    "$type": "string",
+    "$value": "400"
+  },
+  "z-toast": {
+    "$type": "string",
+    "$value": "500"
+  },
+  "z-effects": {
+    "$type": "string",
+    "$value": "600"
+  }
+}
