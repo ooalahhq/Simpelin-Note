@@ -9,7 +9,7 @@ Catatan belajar **pixel fantasy**. pahami materi sambil menikmati DUAR DUAR.
 - **Bantuan AI:** penjelasan sederhana, contoh, dan materi pelengkap.
 - **Simpan otomatis** di browser, tanpa login. Bisa ekspor cadangan ZIP.
 
-## 🚀 Cara pake Windows & Linux
+## Cara pake Windows & Linux
 
 1. Pasang [Node.js LTS](https://nodejs.org/en/download) (minimal versi 22.13).
 2. Unduh ZIP proyek ini, lalu ekstrak.
