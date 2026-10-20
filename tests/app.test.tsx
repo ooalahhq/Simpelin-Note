@@ -190,6 +190,55 @@ describe("actual application DOM and IndexedDB", () => {
       JSON.stringify((await db.workspace.get("main"))?.data),
     ).not.toContain("private-test-key-123");
   });
+  it("persists and restores a keyless local Custom provider selection", async () => {
+    await app();
+    fireEvent.click(screen.getByRole("button", { name: "Pengaturan" }));
+    fireEvent.click(screen.getByRole("tab", { name: "AI Provider" }));
+    fireEvent.change(screen.getByLabelText("Provider"), {
+      target: { value: "custom" },
+    });
+    fireEvent.change(screen.getByLabelText("Base URL"), {
+      target: { value: "http://192.168.1.20:1234/v1" },
+    });
+    fireEvent.change(screen.getByLabelText(/ID model/), {
+      target: { value: "local-model" },
+    });
+    fireEvent.click(
+      screen.getByRole("button", { name: "Aktifkan pengaturan" }),
+    );
+
+    await screen.findByText(
+      "Pengaturan aktif; key hanya tersimpan di memori sesi ini.",
+    );
+    expect(JSON.parse(localStorage.getItem("simpelin-ai-preferences")!)).toEqual({
+      provider: "custom",
+      model: "local-model",
+      baseUrl: "http://192.168.1.20:1234/v1",
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: "Tutup dialog" }));
+    cleanup();
+    await app();
+    fireEvent.click(screen.getByRole("button", { name: "Pengaturan" }));
+    fireEvent.click(screen.getByRole("tab", { name: "AI Provider" }));
+    expect((screen.getByLabelText("Provider") as HTMLSelectElement).value).toBe(
+      "custom",
+    );
+    expect((screen.getByLabelText(/ID model/) as HTMLInputElement).value).toBe(
+      "local-model",
+    );
+    expect((screen.getByLabelText("Base URL") as HTMLInputElement).value).toBe(
+      "http://192.168.1.20:1234/v1",
+    );
+    expect((screen.getByLabelText(/API key/) as HTMLInputElement).value).toBe(
+      "",
+    );
+    fireEvent.click(screen.getByRole("button", { name: /AI Summary/ }));
+    expect(screen.getByText(/Custom · local-model/)).toBeTruthy();
+    expect(
+      screen.getByRole("button", { name: /Buat Summary/ }).hasAttribute("disabled"),
+    ).toBe(false);
+  });
 });
 
 it("keeps native Enter splitting while triggering the caret effect", async () => {

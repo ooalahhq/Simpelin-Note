@@ -2,7 +2,7 @@
 
 Catatan belajar **pixel fantasy**. pahami materi sambil menikmati DUAR DUAR.
 
-##  Fitur
+## Fitur
 
 - **Catatan rapi:** kategori, gambar, tabel, dan blok kode.
 - **Suasana fantasy:** efek sihir, Motion Lab, dan Ooalah witch.
@@ -26,9 +26,9 @@ npm start
 
 Buka **http://localhost:3000**. Biarkan terminal terbuka. Untuk berhenti, tekan **Ctrl+C**. Berikutnya cukup `npm start`.
 
-##  Pakai AI summary
+## Pakai AI summary
 
-Buka **Pengaturan → AI Provider**, pilih OpenAI, Gemini, atau Anthropic. Masukkan ID model dan API key milikmu, lalu **Uji koneksi → Aktifkan pengaturan**.
+Buka **Pengaturan → AI Provider**, pilih provider, masukkan ID model dan API key, lalu **Uji koneksi → Aktifkan pengaturan**. Provider **Custom** memakai endpoint OpenAI-compatible; isi Base URL seperti `https://api.example.com/v1`. API key boleh kosong untuk Custom yang diarahkan ke server lokal.
 
 Mencatat tetap bisa tanpa AI. Penggunaan AI mengikuti tarif provider; periksa kembali materi tambahannya.
 

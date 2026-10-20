@@ -44,7 +44,10 @@ export default function SummaryDialog({
     (n) => n.categoryId === categoryId && n.type === "note",
   );
   const available = notes.some((n) => textOf(n.content).trim());
-  const ready = !!config.key && !!config.model;
+  const ready =
+    !!config.model &&
+    !!config.key &&
+    (config.provider !== "custom" || !!config.baseUrl);
   async function run() {
     if (busy) return;
     setBusy(true);

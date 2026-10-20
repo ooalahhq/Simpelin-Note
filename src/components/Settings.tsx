@@ -18,6 +18,7 @@ import {
 import type { Workspace, AnimationPreferences } from "@/lib/model";
 import {
   aiRequest,
+  isLocalAIBaseUrl,
   providerNames,
   type AIConfig,
   type Provider,
@@ -74,15 +75,53 @@ export default function Settings({
     setError("");
     setMessage("");
     try {
+      if (draft.provider === "custom") {
+        let customUrl: URL;
+        try {
+          customUrl = new URL(draft.baseUrl?.trim() || "");
+        } catch {
+          throw new Error(
+            "Masukkan Base URL Custom yang valid (http atau https).",
+          );
+        }
+        if (
+          !["http:", "https:"].includes(customUrl.protocol) ||
+          customUrl.username ||
+          customUrl.password ||
+          customUrl.search ||
+          customUrl.hash
+        )
+          throw new Error(
+            "Base URL Custom harus berupa URL http atau https tanpa kredensial.",
+          );
+      }
+      const keylessLocalLLM =
+        (!draft.key || draft.key === "default") &&
+        draft.provider === "custom" &&
+        isLocalAIBaseUrl(draft.baseUrl);
       if (remember) {
-        if (!draft.key) throw new Error("Masukkan API key terlebih dahulu.");
+        if (!draft.key || draft.key === "default" || keylessLocalLLM)
+          throw new Error("Masukkan API key terlebih dahulu.");
         await rememberKey(draft.key, passphrase);
         setRemembered(true);
       }
-      onConfig(draft);
+      onConfig({
+        ...draft,
+        key: keylessLocalLLM
+          ? "default"
+          : draft.key === "default"
+            ? ""
+            : draft.key,
+      });
       localStorage.setItem(
         "simpelin-ai-preferences",
-        JSON.stringify({ provider: draft.provider, model: draft.model }),
+        JSON.stringify({
+          provider: draft.provider,
+          model: draft.model,
+          ...(draft.provider === "custom"
+            ? { baseUrl: draft.baseUrl?.trim() || "" }
+            : {}),
+        }),
       );
       setPassphrase("");
       setMessage(
@@ -216,6 +255,7 @@ export default function Settings({
                     provider: e.target.value as Provider,
                     model: "",
                     key: "",
+                    baseUrl: "",
                   });
                   setMessage("");
                 }}
@@ -227,6 +267,23 @@ export default function Settings({
                 ))}
               </select>
             </Field>
+            {draft.provider === "custom" && (
+              <Field
+                label="Base URL"
+                hint="Endpoint OpenAI-compatible. Contoh: https://api.example.com/v1"
+              >
+                <input
+                  type="url"
+                  value={draft.baseUrl || ""}
+                  onChange={(e) =>
+                    setDraft({ ...draft, baseUrl: e.target.value })
+                  }
+                  placeholder="https://api.example.com/v1"
+                  autoComplete="url"
+                  required
+                />
+              </Field>
+            )}
             <Field
               label="ID model"
               hint="Masukkan ID model yang tersedia pada akun providermu."
@@ -240,11 +297,15 @@ export default function Settings({
             </Field>
             <Field
               label="API key"
-              hint="Key melewati proxy server Simpelin untuk request ini, lalu diteruskan ke provider. Server tidak menyimpan key atau materi."
+              hint={
+                draft.provider === "custom"
+                  ? "API key diteruskan ke endpoint. Boleh kosong jika Base URL menunjuk ke server lokal."
+                  : "Key melewati proxy server Simpelin untuk request ini, lalu diteruskan ke provider. Server tidak menyimpan key atau materi."
+              }
             >
               <input
                 type="password"
-                value={draft.key}
+                value={draft.key === "default" ? "" : draft.key}
                 onChange={(e) => setDraft({ ...draft, key: e.target.value })}
                 placeholder="Key milikmu"
                 autoComplete="off"
@@ -311,7 +372,7 @@ export default function Settings({
             <div className="modal-actions">
               <button
                 className="button secondary"
-                disabled={busy || !draft.key || !draft.model}
+                disabled={busy || !draft.model}
                 onClick={test}
               >
                 {busy ? <Spinner /> : null}Uji koneksi
