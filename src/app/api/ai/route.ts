@@ -1,8 +1,24 @@
 import { NextResponse } from "next/server";
 import { aiInstruction, aiPrompt } from "../../../lib/ai-prompts";
+import { isLocalAIBaseUrl } from "../../../lib/ai";
 import { isSameOriginRequest } from "../../../lib/request-origin";
 export const runtime = "nodejs";
 export const maxDuration = 120;
+function isValidCustomBaseUrl(value: string) {
+  try {
+    const url = new URL(value);
+    return (
+      ["http:", "https:"].includes(url.protocol) &&
+      !!url.hostname &&
+      !url.username &&
+      !url.password &&
+      !url.search &&
+      !url.hash
+    );
+  } catch {
+    return false;
+  }
+}
 async function readBody(request: Request) {
   const reader = request.body?.getReader();
   if (!reader) throw new Error("Body kosong.");
@@ -38,16 +54,22 @@ export async function POST(request: Request) {
       provider,
       model,
       key,
+      baseUrl,
       text,
       stage,
       expanded = false,
       topic = "",
     } = body;
     if (
-      !["openai", "gemini", "anthropic"].includes(provider) ||
+      !["openai", "gemini", "anthropic", "custom"].includes(provider) ||
       typeof key !== "string" ||
-      key.length < 8 ||
+      (!(provider === "custom" && isLocalAIBaseUrl(baseUrl)) &&
+        key.length < 1) ||
       key.length > 1024 ||
+      (provider === "custom" &&
+        (typeof baseUrl !== "string" ||
+          baseUrl.length > 2048 ||
+          !isValidCustomBaseUrl(baseUrl))) ||
       typeof model !== "string" ||
       !/^[a-zA-Z0-9._:-]{1,100}$/.test(model) ||
       typeof text !== "string" ||
@@ -87,6 +109,21 @@ export async function POST(request: Request) {
         system: instruction,
         messages: [{ role: "user", content: prompt }],
         max_tokens: tokens,
+      };
+    } else if (provider === "custom") {
+      const base = new URL(baseUrl);
+      const path = base.pathname.replace(/\/+$/, "");
+      endpoint = `${base.origin}${path}${/\/v1$/i.test(path) ? "" : "/v1"}/chat/completions`;
+      headers =
+        key && key !== "default" ? { Authorization: `Bearer ${key}` } : {};
+      payload = {
+        model,
+        messages: [
+          { role: "system", content: instruction },
+          { role: "user", content: prompt },
+        ],
+        max_tokens: tokens,
+        stream: false,
       };
     } else {
       endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
@@ -128,7 +165,7 @@ export async function POST(request: Request) {
     const data = await response.json();
     let output = "";
     let truncated = false;
-    if (provider === "openai") {
+    if (provider === "openai" || provider === "custom") {
       output = data.choices?.[0]?.message?.content || "";
       truncated = data.choices?.[0]?.finish_reason === "length";
     } else if (provider === "anthropic") {

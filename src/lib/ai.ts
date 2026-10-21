@@ -1,12 +1,55 @@
 import { textOf, type Note } from "./model";
 export { markdownDocument } from "./markdown";
-export type Provider = "openai" | "gemini" | "anthropic";
-export type AIConfig = { provider: Provider; model: string; key: string };
+export type Provider = "openai" | "gemini" | "anthropic" | "custom";
+export type AIConfig = {
+  provider: Provider;
+  model: string;
+  key: string;
+  baseUrl?: string;
+};
 export const providerNames: Record<Provider, string> = {
   openai: "OpenAI",
   gemini: "Google Gemini",
   anthropic: "Anthropic",
+  custom: "Custom",
 };
+export function isLocalAIBaseUrl(baseUrl?: string) {
+  if (!baseUrl) return false;
+  try {
+    const host = new URL(baseUrl).hostname.toLowerCase().replace(/^\[|\]$/g, "");
+    if (
+      host === "localhost" ||
+      host.endsWith(".localhost") ||
+      host.endsWith(".local") ||
+      host.endsWith(".lan") ||
+      host.endsWith(".internal") ||
+      !host.includes(".") ||
+      host === "host.docker.internal" ||
+      host === "gateway.docker.internal" ||
+      host === "::1" ||
+      /^f[cd][0-9a-f]{2}:/i.test(host) ||
+      host.startsWith("fe80:")
+    )
+      return true;
+    const octets = host.split(".").map(Number);
+    if (
+      octets.length !== 4 ||
+      octets.some((octet) => !Number.isInteger(octet) || octet < 0 || octet > 255)
+    )
+      return false;
+    const [first, second] = octets;
+    return (
+      first === 0 ||
+      first === 10 ||
+      first === 127 ||
+      (first === 169 && second === 254) ||
+      (first === 172 && second >= 16 && second <= 31) ||
+      (first === 192 && second === 168)
+    );
+  } catch {
+    return false;
+  }
+}
 export function materialContext(notes: Note[]) {
   return notes
     .filter((n) => n.type === "note")

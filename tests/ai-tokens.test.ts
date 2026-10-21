@@ -21,6 +21,7 @@ function request(body: Record<string, unknown>) {
 }
 const complete: Record<Provider, object> = {
   openai: { choices: [{ finish_reason: "stop", message: { content: "OK" } }] },
+  custom: { choices: [{ finish_reason: "stop", message: { content: "OK" } }] },
   anthropic: {
     stop_reason: "end_turn",
     content: [{ type: "text", text: "OK" }],
@@ -33,6 +34,9 @@ const complete: Record<Provider, object> = {
 };
 const partial: Record<Provider, object> = {
   openai: {
+    choices: [{ finish_reason: "length", message: { content: "INCOMPLETE" } }],
+  },
+  custom: {
     choices: [{ finish_reason: "length", message: { content: "INCOMPLETE" } }],
   },
   anthropic: {
@@ -48,6 +52,55 @@ const partial: Record<Provider, object> = {
     ],
   },
 };
+it("calls the configured OpenAI-compatible Custom endpoint and parses its response", async () => {
+  const fetchMock = vi
+    .fn<typeof fetch>()
+    .mockResolvedValue(new Response(JSON.stringify(complete.custom)));
+  vi.stubGlobal("fetch", fetchMock);
+
+  const result = await POST(
+    request({
+      provider: "custom",
+      model: "custom-model",
+      key: "custom-key",
+      baseUrl: "https://ai.example.test/v1/",
+    }),
+  );
+
+  expect(result.status).toBe(200);
+  expect(await result.json()).toEqual({ text: "OK" });
+  const [url, options] = fetchMock.mock.calls[0];
+  expect(url).toBe("https://ai.example.test/v1/chat/completions");
+  expect(options?.headers).toMatchObject({
+    "Content-Type": "application/json",
+    Authorization: "Bearer custom-key",
+  });
+  expect(JSON.parse(String(options?.body))).toMatchObject({
+    model: "custom-model",
+    stream: false,
+  });
+});
+
+it("accepts a keyless Custom endpoint on a local network and omits authorization", async () => {
+  const fetchMock = vi
+    .fn<typeof fetch>()
+    .mockResolvedValue(new Response(JSON.stringify(complete.custom)));
+  vi.stubGlobal("fetch", fetchMock);
+
+  const result = await POST(
+    request({
+      provider: "custom",
+      model: "local-model",
+      key: "",
+      baseUrl: "http://192.168.1.20:1234/v1",
+    }),
+  );
+
+  expect(result.status).toBe(200);
+  const [, options] = fetchMock.mock.calls[0];
+  expect(options?.headers).not.toHaveProperty("Authorization");
+});
+
 it.each<Provider>(["anthropic", "openai", "gemini"])(
   "uses a short connection-only instruction with enough output room for %s",
   async (provider) => {

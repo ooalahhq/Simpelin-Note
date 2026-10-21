@@ -33,7 +33,7 @@ import {
   textOf,
   type Note,
 } from "@/lib/model";
-import { markdownDocument, type AIConfig } from "@/lib/ai";
+import { isLocalAIBaseUrl, markdownDocument, type AIConfig } from "@/lib/ai";
 import { applyBackup, type ImportPreview } from "@/lib/backup";
 import {
   EffectsOverlay,
@@ -83,11 +83,20 @@ export default function WorkspaceApp() {
       const meta = JSON.parse(
         localStorage.getItem("simpelin-ai-preferences") || "null",
       );
-      if (meta && ["openai", "gemini", "anthropic"].includes(meta.provider))
+      if (
+        meta &&
+        ["openai", "gemini", "anthropic", "custom"].includes(
+          meta.provider,
+        )
+      )
         setConfig({
           provider: meta.provider,
           model: typeof meta.model === "string" ? meta.model : "",
-          key: "",
+          baseUrl: typeof meta.baseUrl === "string" ? meta.baseUrl : "",
+          key:
+            meta.provider === "custom" && isLocalAIBaseUrl(meta.baseUrl)
+              ? "default"
+              : "",
         });
     } catch {
       /* Invalid preferences are ignored. */
