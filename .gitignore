@@ -8,3 +8,6 @@ test-results/
 !.env.example
 
 .browser-fixture/
+
+# graphify cache
+graphify-out/cache/
